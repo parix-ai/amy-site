@@ -7,7 +7,14 @@
   // scroll reveal
   var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(!e.isIntersecting)return;
+      var el=e.target;
+      if(!el.style.transitionDelay&&el.parentNode){
+        var sibs=Array.prototype.filter.call(el.parentNode.children,function(c){return c.classList&&c.classList.contains('reveal')});
+        var i=sibs.indexOf(el);
+        if(i>0)el.style.transitionDelay=Math.min(i*90,360)+'ms';
+      }
+      el.classList.add('in');io.unobserve(el)})},{threshold:.01,rootMargin:'0px 0px -40px 0px'});
     els.forEach(function(e){io.observe(e)});
   } else { els.forEach(function(e){e.classList.add('in')}); }
   // contact form → mailto (no backend needed)
@@ -39,7 +46,7 @@
   document.querySelectorAll('.nl-form').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var em=f.querySelector('input[type=email]').value;
     location.href='mailto:amysindicic@gmail.com?subject='+encodeURIComponent('Send me the résumé template + 10 days of writing tips')+'&body='+encodeURIComponent('Please add me to the list: '+em);});});
 })();
-/* ===== v3 hero: constellation canvas, flipping headline, live translator, parallax ===== */
+/* ===== v3 hero: constellation canvas, live translator, parallax ===== */
 (function(){
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // --- constellation ---
@@ -59,13 +66,6 @@
       raf=requestAnimationFrame(draw)}
     new IntersectionObserver(function(en){vis=en[0].isIntersecting;if(vis&&!raf)draw()}).observe(c);
     draw();
-  }
-  // --- flipping headline pairs ---
-  var f1=document.getElementById('flipFrom'),f2=document.getElementById('flipTo');
-  if(f1&&f2&&!reduce){
-    var pairs=[['mission-driven','market-ready.'],['GS-15','Vice President.'],['Colonel','Chief of Operations.'],['Program Director','Executive Director.'],['SES-ready','SES.'],['public service','private-sector leader.']],k=0;
-    function swap(el,txt){var old=el.querySelector('span');var nw=document.createElement('span');nw.textContent=txt;nw.className='in';old.className='out';el.appendChild(nw);setTimeout(function(){old.remove()},600)}
-    setInterval(function(){k=(k+1)%pairs.length;swap(f1,pairs[k][0]);swap(f2,pairs[k][1])},3200);
   }
   // --- live translator ---
   var tf=document.getElementById('tFrom'),tt=document.getElementById('tTo'),tg=document.getElementById('tTag'),tp=document.getElementById('tProg');

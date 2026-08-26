@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Arrow, Play, CountUp, useVideo } from './ui'
-import { TRANSLATIONS, FLIP_PAIRS, VIDEO_ID } from '../data'
+import { TRANSLATIONS, VIDEO_ID } from '../data'
 
 function Constellation() {
   const ref = useRef(null); const reduce = useReducedMotion()
@@ -23,13 +23,6 @@ function Constellation() {
     return () => { cancelAnimationFrame(raf); io.disconnect(); removeEventListener('resize', size); par.removeEventListener('mousemove', mm); par.removeEventListener('mouseleave', ml) }
   }, [reduce])
   return <canvas className="hero__net" ref={ref} aria-hidden="true" />
-}
-
-function Flip() {
-  const [k, setK] = useState(0); const reduce = useReducedMotion()
-  useEffect(() => { if (reduce) return; const t = setInterval(() => setK((k) => (k + 1) % FLIP_PAIRS.length), 3200); return () => clearInterval(t) }, [reduce])
-  const W = ({ txt, em }) => { const T = em ? motion.em : motion.span; return <T key={txt} className={'flip ' + (em ? 'flip--em' : '')} style={{ display: 'inline-block' }} initial={{ y: '110%', opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: '-110%', opacity: 0 }} transition={{ duration: .55, ease: [0.2, 0.7, 0.2, 1] }}>{txt}</T> }
-  return <h1 className="hero__h1">From <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}><W txt={FLIP_PAIRS[k][0]} /></span><br />to <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}><W txt={FLIP_PAIRS[k][1]} em /></span></h1>
 }
 
 function Translator() {
@@ -64,12 +57,13 @@ export default function Hero() {
   const stag = { hidden: {}, show: { transition: { staggerChildren: .1 } } }; const item = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: .8, ease: [0.2, 0.7, 0.2, 1] } } }
   return (
     <section className="hero hero--v3 dark" ref={heroRef} onMouseMove={reduce ? undefined : onMove} onMouseLeave={onLeave}>
+      <img className="hero__photo" src="assets/img/amy-keynote.jpg" alt="" aria-hidden="true" />
       <Constellation />
       <div className="hero__glow" aria-hidden="true" /><div className="hero__spot" aria-hidden="true" style={{ '--sx': spot.x, '--sy': spot.y }} />
       <div className="wrap">
         <motion.div className="stagger" variants={stag} initial="hidden" animate="show">
-          <motion.span variants={item} className="eyebrow">Career strategist · Government & military → private sector</motion.span>
-          <motion.div variants={item}><Flip /></motion.div>
+          <motion.span variants={item} className="eyebrow">Career strategist · Government → private sector</motion.span>
+          <motion.h1 variants={item} className="hero__h1">From mission-driven<br />to <em>market-ready.</em></motion.h1>
           <motion.p variants={item} className="lede">Translate your public service into private-sector leadership. Position your value. Land the role you've already earned.</motion.p>
           <motion.div variants={item} className="hero__cta">
             <Link className="btn btn--primary btn--glow" to="/contact">Book a discovery call <Arrow /></Link>
@@ -77,8 +71,8 @@ export default function Hero() {
           </motion.div>
           <motion.div variants={item} className="trust"><span className="trust__stars">★★★★★</span><span><b>5.0</b> from client reviews</span><i /><span>Clients in the U.S., Europe, Asia & Latin America</span></motion.div>
           <motion.div variants={item} className="hero__proof">
-            <div><strong><CountUp to={30} suffix="+" /></strong><span>years teaching professionals to communicate with precision</span></div>
-            <div><strong><CountUp to={4} /></strong><span>continents of senior clients served</span></div>
+            <div><strong><CountUp to={30} suffix="+" /></strong><span>years teaching professional communication</span></div>
+            <div><strong><CountUp to={4} /></strong><span>continents of clients served</span></div>
             <div><strong><CountUp to={3} /></strong><span>professional certifications</span></div>
           </motion.div>
         </motion.div>
@@ -87,7 +81,7 @@ export default function Hero() {
           <motion.div className="chip chip--a" style={p40}><b>GS-15 → VP</b><span>Typical move</span></motion.div>
           <motion.div className="chip chip--b" style={p30}><b>ECQs · TQs</b><span>SES packages</span></motion.div>
           <motion.img className="butterfly" src="assets/brand/butterfly-badge.png" alt="" style={p55} />
-          <motion.div className="hero__card" style={p12}><img src="assets/img/amy-portrait.jpg" alt="Amy Sindicic" /><div><b>Amy Sindicic</b><span>Career strategist · Executive résumé writer · Interview advisor</span></div></motion.div>
+          <motion.div className="hero__card" style={p12}><img src="assets/img/amy-headshot.jpg" alt="Amy Sindicic" /><div><b>Amy Sindicic</b><span>Career strategist · Executive résumé writer · Interview advisor</span></div></motion.div>
         </motion.div>
       </div>
       <a className="scroll-cue" href="#why" aria-label="Scroll"><span /></a>

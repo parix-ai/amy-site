@@ -10,8 +10,8 @@ export function Reveal({ children, className = '', as = 'div', delay = 0, ...res
   const reduce = useReducedMotion()
   const M = motion[as] || motion.div
   return (
-    <M className={className} initial={reduce ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1], delay }} onViewportEnter={(e) => e?.target?.classList.add('in')} {...rest}>
+    <M className={className} initial={reduce ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.01, margin: '0px 0px -40px 0px' }}
+      transition={{ duration: 1.05, ease: [0.22, 0.61, 0.36, 1], delay }} onViewportEnter={(e) => e?.target?.classList.add('in')} {...rest}>
       {children}
     </M>
   )

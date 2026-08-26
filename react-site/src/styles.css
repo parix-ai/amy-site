@@ -518,3 +518,245 @@ p{margin:0} a{color:inherit;text-decoration:none} img{max-width:100%;height:auto
 .hero .stagger>*{opacity:1;transform:none;animation:none}
 .page{min-height:60vh}
 @media (max-width:480px){.hero__proof div{flex:1 1 90px;padding-right:12px}.hero__proof strong{font-size:28px}}
+
+/* ===== v5: photography layer =====
+   Photo bands use real <img> elements (object-fit: cover) so their src resolves
+   against the document — the same markup works for the static and React builds. */
+
+/* full-bleed photo band with a scrim + copy */
+.showband{position:relative;overflow:hidden;isolation:isolate;background:var(--navy);color:#fff}
+.showband__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:64% 38%}
+.showband::after{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(100deg,rgba(11,27,58,.97) 0%,rgba(11,27,58,.93) 34%,rgba(11,27,58,.55) 62%,rgba(11,27,58,.34) 100%),
+  linear-gradient(to bottom,rgba(11,27,58,.5),transparent 30%,transparent 72%,rgba(11,27,58,.6))}
+.showband .wrap{position:relative;padding-top:clamp(66px,8vw,116px);padding-bottom:clamp(66px,8vw,116px)}
+.showband__inner{max-width:54ch}
+.showband h2{font-size:clamp(30px,4.2vw,54px);font-weight:300;margin:16px 0 18px}
+.showband h2 em{font-style:italic;color:var(--orange)}
+.showband__stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin-top:38px;padding-top:26px;border-top:1px solid var(--line-dark)}
+.showband__stats div{flex:0 1 auto;min-width:132px}
+.showband__stats b{display:block;font-family:var(--display);font-size:clamp(28px,3vw,36px);font-weight:300;line-height:1;margin-bottom:7px;font-variant-numeric:tabular-nums}
+.showband__stats span{font-size:13px;color:rgba(255,255,255,.62);display:block;max-width:22ch}
+@media (max-width:820px){.showband::after{background:linear-gradient(180deg,rgba(11,27,58,.82) 0%,rgba(11,27,58,.94) 55%,var(--navy) 100%)}.showband__media{object-position:center 22%}}
+
+/* slim full-bleed divider strip */
+.strip{position:relative;overflow:hidden;isolation:isolate;background:var(--navy);color:#fff;min-height:clamp(190px,24vw,280px);display:grid;align-items:center}
+.strip__media{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:grayscale(.55) contrast(1.05)}
+.strip::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,27,58,.94) 0%,rgba(11,27,58,.7) 40%,rgba(11,27,58,.78) 100%)}
+.strip .wrap{position:relative;padding-top:36px;padding-bottom:36px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px}
+.strip h2{font-size:clamp(24px,3vw,38px);font-weight:300;max-width:22ch}
+.strip h2 em{font-style:italic;color:var(--orange)}
+.strip .eyebrow{margin-bottom:12px}
+
+/* editorial portrait (Meet Amy) */
+.portrait{position:relative;padding:0 20px 20px 0;isolation:isolate}
+.portrait__frame{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:0 46px 90px -40px rgba(11,27,58,.55)}
+.portrait__frame img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.portrait:hover .portrait__frame img{transform:scale(1.035)}
+.portrait::before{content:"";position:absolute;right:0;bottom:0;width:62%;height:62%;border:2px solid var(--orange);border-radius:var(--r);z-index:-1}
+.portrait__tag{position:absolute;left:-14px;bottom:34px;background:#fff;border-radius:10px;padding:14px 18px;box-shadow:0 26px 54px -22px rgba(11,27,58,.55);display:grid;gap:3px;max-width:250px}
+.portrait__tag b{font-family:var(--display);font-weight:400;font-size:19px;line-height:1.15;color:var(--navy)}
+.portrait__tag span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-dark);font-weight:700}
+.portrait__logo{max-width:190px;margin:24px auto 0}
+@media (max-width:900px){.portrait{max-width:460px;margin:0 auto;padding-right:16px;padding-bottom:16px}.portrait__tag{left:0}}
+
+/* photo mosaic + accent tile */
+.mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.mosaic__tile{position:relative;border-radius:var(--r);overflow:hidden;min-height:clamp(300px,32vw,400px);display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate;box-shadow:0 34px 64px -40px rgba(11,27,58,.55)}
+.mosaic__tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.mosaic__tile:hover img{transform:scale(1.05)}
+.mosaic__tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(11,27,58,.94) 0%,rgba(11,27,58,.6) 38%,rgba(11,27,58,.12) 72%,rgba(11,27,58,.28) 100%)}
+.mosaic__body{padding:26px 26px 28px;color:#fff}
+.mosaic__body span{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+.mosaic__body h3{font-size:clamp(22px,2.2vw,27px);margin:9px 0 8px}
+.mosaic__body p{font-size:14px;color:rgba(255,255,255,.74);max-width:34ch}
+.mosaic__tile--cta{background:var(--orange);color:var(--navy);justify-content:center;padding:34px 30px}
+.mosaic__tile--cta::after{display:none}
+.mosaic__tile--cta span{color:rgba(11,27,58,.62)}
+.mosaic__tile--cta h3{color:var(--navy);font-size:clamp(26px,2.6vw,34px);margin:10px 0 14px}
+.mosaic__tile--cta p{color:rgba(11,27,58,.78);font-size:15px;margin-bottom:24px;max-width:30ch}
+.mosaic__tile--cta .btn{background:var(--navy);color:#fff;align-self:flex-start}
+.mosaic__tile--cta .btn:hover{background:#000}
+@media (max-width:900px){.mosaic{grid-template-columns:1fr}.mosaic__tile{min-height:280px}}
+@media (prefers-reduced-motion:reduce){.mosaic__tile img,.portrait__frame img{transition:none}}
+
+/* ===== v6: light hero, quiet motion ===== */
+.hero--v6{position:relative;overflow:hidden;background:var(--paper);color:var(--ink);border-bottom:1px solid var(--line);padding:clamp(52px,6.5vw,92px) 0 clamp(58px,7vw,98px)}
+.hero--v6::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(760px 520px at 88% 6%,rgba(240,134,28,.14),transparent 62%),
+  radial-gradient(620px 480px at 0% 98%,rgba(11,27,58,.07),transparent 62%)}
+.hero--v6 .wrap{position:relative;display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(34px,5.5vw,78px);align-items:center}
+.hero--v6 h1{font-size:clamp(38px,5.4vw,74px);font-weight:300;color:var(--navy);margin:20px 0 24px;letter-spacing:-.015em}
+.hero--v6 h1 em{font-style:italic;color:var(--orange-dark)}
+.hero--v6 .lede{color:var(--slate);max-width:50ch}
+.hero--v6 .hero__cta{margin-top:34px}
+.hero--v6 .trust{color:var(--slate);margin-top:28px}
+.hero--v6 .trust b{color:var(--navy)}
+.hero--v6 .trust i{background:var(--line)}
+.hero--v6 .hero__proof{border-top:1px solid var(--line);margin-top:42px;padding-top:26px}
+.hero--v6 .hero__proof strong{color:var(--navy);font-size:clamp(29px,3.2vw,37px)}
+.hero--v6 .hero__proof span{color:var(--slate)}
+/* light play button */
+.btn--play-lt{background:transparent;color:var(--navy);border-color:var(--line);padding-left:14px}
+.btn--play-lt:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn--play-lt i{width:34px;height:34px;border-radius:50%;background:var(--orange);display:grid;place-items:center;flex:none}
+.btn--play-lt i svg{width:14px;height:14px;fill:var(--navy);stroke:none;margin-left:2px}
+/* hero portrait */
+.hero__figure{position:relative;padding:0 18px 18px 0;isolation:isolate}
+.hero__figure .shot{border-radius:var(--r);overflow:hidden;box-shadow:0 46px 88px -44px rgba(11,27,58,.5)}
+.hero__figure .shot img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.hero__figure::before{content:"";position:absolute;right:0;bottom:0;width:58%;height:58%;border:2px solid var(--orange);border-radius:var(--r);z-index:-1}
+.hero__badge{position:absolute;left:-18px;bottom:28px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;box-shadow:0 24px 48px -22px rgba(11,27,58,.45);display:grid;gap:3px;max-width:250px}
+.hero__badge b{font-family:var(--display);font-weight:400;font-size:19px;line-height:1.15;color:var(--navy)}
+.hero__badge span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-dark);font-weight:700}
+@media (max-width:900px){.hero--v6 .wrap{grid-template-columns:1fr}.hero__figure{max-width:430px;margin:14px auto 0;padding-right:16px;padding-bottom:16px}.hero__badge{left:0}}
+/* one-shot entrance only */
+.hero--v6 .stagger>*{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+.hero--v6 .hero__figure{opacity:0;transform:translateY(14px);animation:rise .8s cubic-bezier(.2,.7,.2,1) .25s forwards}
+@media (prefers-reduced-motion:reduce){.hero--v6 .stagger>*,.hero--v6 .hero__figure{animation:none;opacity:1;transform:none}}
+
+/* credential row, light */
+.badges--lt{background:var(--line);border-top:0;border-bottom:1px solid var(--line)}
+.badges--lt div{background:var(--paper)}
+.badges--lt img{background:var(--navy);padding:4px}
+.badges--lt b{color:var(--navy)}
+.badges--lt span{color:var(--orange-dark)}
+
+/* static audience line (replaces the scrolling ticker) */
+.audience{background:var(--paper-2);border-bottom:1px solid var(--line);padding:20px 0}
+.audience .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 20px}
+.audience b{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-2)}
+.audience span{font-size:14px;font-weight:600;color:var(--navy);display:inline-flex;align-items:center;gap:20px}
+.audience span::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--orange);flex:none}
+.audience span:last-child::after{display:none}
+
+/* mosaic is now four tiles */
+.mosaic{grid-template-columns:repeat(2,1fr)}
+.mosaic__tile{min-height:clamp(320px,27vw,392px)}
+@media (max-width:900px){.mosaic{grid-template-columns:1fr}.mosaic__tile{min-height:280px}}
+
+/* ===== v7: hero balance, stable lines, real measures ===== */
+/* give the copy more of the row so the display type stops breaking mid-phrase */
+.hero--v6 .wrap{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(30px,4.2vw,62px)}
+.hero--v6 h1{font-size:clamp(36px,4.4vw,58px);margin:18px 0 22px}
+.hero--v6 .lede{max-width:46ch}
+/* eyebrow holds a single line across desktop widths so nothing below shifts */
+.hero--v6 .eyebrow{min-height:19px;white-space:nowrap}
+@media (max-width:560px){.hero--v6 .eyebrow{white-space:normal}}
+/* equal stat columns, short labels, no ragged 4-line wrap */
+.hero--v6 .hero__proof div{flex:1 1 0;min-width:0;padding-right:26px}
+.hero--v6 .hero__proof span{display:block;max-width:21ch}
+
+/* showband: measure the heading against its own size, not body text */
+.showband__media{object-position:64% 38%}
+.showband__inner{max-width:min(660px,100%)}
+.showband h2{font-size:clamp(28px,3.4vw,46px)}
+.showband::after{background:
+  linear-gradient(100deg,rgba(11,27,58,.96) 0%,rgba(11,27,58,.9) 32%,rgba(11,27,58,.5) 62%,rgba(11,27,58,.26) 100%),
+  linear-gradient(to bottom,rgba(11,27,58,.45),transparent 28%,transparent 74%,rgba(11,27,58,.55))}
+.showband__stats{gap:14px 40px}
+
+/* audience line: hold one row on desktop */
+.audience .wrap{gap:6px 16px}
+.audience span{gap:16px;font-size:13.5px}
+
+/* ===== v8: strip + badge + frame polish ===== */
+/* compact credential strip */
+.badges--lt div{padding:22px 26px;gap:14px}
+.badges--lt img{width:44px;height:44px}
+.badges--lt b{font-size:18px}
+.badges--lt span{font-size:11px}
+/* tighter portrait frame so the accent rule hugs the image */
+.hero__figure{padding:0 14px 14px 0}
+.hero__figure::before{width:52%;height:52%}
+
+/* ===== v9: readable scrims now that the photos actually render ===== */
+.showband::after{background:
+  linear-gradient(100deg,rgba(11,27,58,.97) 0%,rgba(11,27,58,.95) 36%,rgba(11,27,58,.87) 51%,rgba(11,27,58,.52) 73%,rgba(11,27,58,.24) 100%),
+  linear-gradient(to bottom,rgba(11,27,58,.4),transparent 26%,transparent 76%,rgba(11,27,58,.5))}
+.showband .lede{color:rgba(255,255,255,.82)}
+.strip::after{background:linear-gradient(90deg,rgba(11,27,58,.95) 0%,rgba(11,27,58,.88) 42%,rgba(11,27,58,.6) 72%,rgba(11,27,58,.5) 100%)}
+@media (max-width:820px){.showband::after{background:linear-gradient(180deg,rgba(11,27,58,.86) 0%,rgba(11,27,58,.95) 52%,var(--navy) 100%)}}
+.mosaic__tile--cta span{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,27,58,.68)}
+
+/* ===== v10: gentler scroll reveals ===== */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity 1.05s cubic-bezier(.22,.61,.36,1),transform 1.05s cubic-bezier(.22,.61,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.stagger-list li{transition:opacity .85s cubic-bezier(.22,.61,.36,1),transform .85s cubic-bezier(.22,.61,.36,1)}
+.in .stagger-list li:nth-child(2){transition-delay:.18s}
+.in .stagger-list li:nth-child(3){transition-delay:.36s}
+.in .stagger-list li:nth-child(4){transition-delay:.54s}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+/* ===== v11: restored hero, static tagline ===== */
+.hero--v3 .hero__h1{font-size:clamp(36px,4.8vw,60px)}
+.hero--v3 .eyebrow{white-space:nowrap}
+@media (max-width:560px){.hero--v3 .eyebrow{white-space:normal}}
+.hero--v3 .hero__proof div{flex:1 1 0;min-width:0;padding-right:24px}
+.hero--v3 .hero__proof span{display:block;max-width:21ch}
+
+/* ===== v12: photographic bed behind the hero constellation ===== */
+.hero__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 36%;
+  opacity:.17;filter:grayscale(.6) contrast(1.05) brightness(.72);pointer-events:none;
+  -webkit-mask-image:radial-gradient(108% 88% at 74% 46%,#000 0%,rgba(0,0,0,.32) 42%,transparent 72%);
+          mask-image:radial-gradient(108% 88% at 74% 46%,#000 0%,rgba(0,0,0,.32) 42%,transparent 72%)}
+@media (max-width:900px){.hero__photo{opacity:.12;object-position:center 28%}}
+
+/* ===== v13: let the room show — photo forward, navy wash back ===== */
+/* full-bleed photo, no mask, only enough darkening to keep white text legible */
+.hero--v3 .hero__photo{opacity:.92;filter:grayscale(.1) contrast(1.05) brightness(.62);
+  -webkit-mask-image:none;mask-image:none}
+/* the navy is now a legibility scrim over the copy, not a blanket over the picture */
+.hero--v3 .hero__glow{background:
+  linear-gradient(100deg,rgba(11,27,58,.92) 0%,rgba(11,27,58,.74) 32%,rgba(11,27,58,.34) 58%,rgba(11,27,58,.16) 100%),
+  radial-gradient(720px 440px at 82% 32%,rgba(240,134,28,.15),transparent 64%),
+  linear-gradient(to bottom,rgba(11,27,58,.5),transparent 20%,transparent 72%,rgba(11,27,58,.9))}
+/* quieter constellation so it reads over the photo instead of fighting it */
+.hero--v3 .hero__net{opacity:.5}
+@media (max-width:900px){
+  .hero--v3 .hero__photo{opacity:.8;object-position:center 28%;filter:grayscale(.15) brightness(.5)}
+  .hero--v3 .hero__glow{background:
+    linear-gradient(180deg,rgba(11,27,58,.72) 0%,rgba(11,27,58,.86) 48%,rgba(11,27,58,.95) 100%)}
+}
+
+/* ===== v14: legibility over the photo ===== */
+.hero--v3 .trust{color:rgba(255,255,255,.88)}
+.hero--v3 .trust b{color:#fff}
+.hero--v3 .trust i{background:rgba(255,255,255,.4)}
+.hero--v3 .hero__proof span{color:rgba(255,255,255,.78)}
+/* the translator reads as a solid panel now that there's a room behind it */
+.hero--v3 .translator{background:rgba(11,27,58,.66);border-color:rgba(255,255,255,.2);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  box-shadow:0 50px 100px -40px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.14)}
+.hero--v3 .translator__bar b{color:rgba(255,255,255,.72)}
+.hero--v3 .translator__row small{color:rgba(255,255,255,.58)}
+
+/* ===== v15: branded infographics ===== */
+.figures{display:grid;gap:clamp(24px,3.5vw,40px);justify-items:center}
+.figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(12px,1.6vw,20px);box-shadow:0 30px 60px -42px rgba(11,27,58,.4);max-width:100%}
+.figure img{display:block;width:100%;height:auto;border-radius:4px}
+.figure figcaption{margin-top:13px;font-size:13px;line-height:1.45;color:var(--slate);text-align:center;max-width:56ch;margin-left:auto;margin-right:auto}
+.figure--wide{width:100%;max-width:980px}
+.figures__pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.6vw,30px);width:100%;align-items:start}
+@media (max-width:900px){.figures__pair{grid-template-columns:1fr;max-width:560px;margin:0 auto}}
+
+/* ===== v16: figures tucked into existing sections ===== */
+.figure--inline{padding:10px;box-shadow:0 24px 48px -36px rgba(11,27,58,.42)}
+.figure--inline figcaption{margin-top:10px;font-size:12px;color:var(--slate-2)}
+/* two-up footer row: copy left, supporting figure right */
+.sec-foot{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(22px,4vw,46px);
+  align-items:center;margin-top:clamp(26px,3.5vw,40px)}
+.sec-foot .tiers-note,.sec-foot .cmp__note{margin-top:0}
+.sec-foot .cmp__note--left{text-align:left}
+@media (max-width:900px){.sec-foot{grid-template-columns:1fr}.sec-foot .figure--inline{max-width:460px}}
+/* method diagram closing the dark framework section */
+.fw-figure{margin-top:clamp(34px,4.5vw,58px)}
+.fw-figure .figure{background:rgba(255,255,255,.97);border-color:rgba(255,255,255,.18)}
+.fw-figure figcaption{color:var(--slate)}
+
+/* ===== v17: keep the inline figures supporting, not dominant ===== */
+.fw-figure .figure{max-width:800px;margin-left:auto;margin-right:auto;
+  background:rgba(255,255,255,.94);border-color:rgba(255,255,255,.14);
+  box-shadow:0 34px 66px -44px rgba(0,0,0,.75)}
+.sec-foot .figure--inline{max-width:420px;justify-self:end}
+@media (max-width:900px){.sec-foot .figure--inline{justify-self:center;max-width:440px}}

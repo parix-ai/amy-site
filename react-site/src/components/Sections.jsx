@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { Reveal, SectionHead, useVideo } from './ui'
+import { Reveal, SectionHead, useVideo, Arrow } from './ui'
 import { TIERS, QUOTES, CASES, POSTS } from '../data'
 
 export const Badges = () => (
-  <div className="badges dark">
+  <div className="badges badges--lt">
     {[['Certified', 'Career & Life Coach'], ['Certified', 'Professional Résumé Writer'], ["Certified · Master's in Marketing", 'Interview Coach']].map(([s, b]) =>
       <div key={b}><img src="assets/brand/butterfly-badge.png" alt="" /><div><span>{s}</span><b>{b}</b></div></div>)}
   </div>
 )
-const TICK = ['GS-14 & GS-15 leaders', 'Senior Executive Service', 'Retiring military officers', 'Federal program directors', 'Defense & intelligence professionals', 'State & local government leaders']
-export const Ticker = () => <div className="ticker dark" aria-hidden="true"><div className="ticker__track">{[...TICK, ...TICK].map((t, i) => <span key={i}>{t}</span>)}</div></div>
+const TICK = ['GS-14 & GS-15 leaders', 'Senior Executive Service', 'Retiring military officers', 'Federal program directors']
+export const Audience = () => (
+  <div className="audience"><div className="wrap">
+    <b>Who Amy works with</b>
+    {TICK.map((t) => <span key={t}>{t}</span>)}
+  </div></div>
+)
 
 export const Statement = () => (
   <section className="section" id="why"><Reveal className="wrap statement">
@@ -42,24 +47,40 @@ export const Compare = () => (
           <li><b>Advised C-suite and board-level stakeholders</b>; secured buy-in for a $12M modernization.</li>
         </ul></div>
     </Reveal>
-    <Reveal as="p" className="cmp__note">Illustrative example. Every client résumé is written from scratch by Amy — a certified résumé writer — never from a template.</Reveal>
+    <div className="sec-foot">
+      <Reveal as="p" className="cmp__note cmp__note--left">Illustrative example. Every client résumé is written from scratch by Amy — a certified résumé writer — never from a template.</Reveal>
+      <Reveal as="figure" className="figure figure--inline">
+        <img src="assets/img/resume-compare.webp" width="567" height="309" loading="lazy" alt="A static résumé rewritten as an impact résumé, with a stated result of 180% more interviews." />
+      </Reveal>
+    </div>
   </div></section>
 )
 
 const STEPS = [['Translate value', 'Decode what your record really proves — program management, budgets, oversight, stakeholder alignment — and turn it into business value.'], ['Shift mindset', 'From applicant to candidate. From responsibility to impact. You learn to see, and say, the significance of your own leadership.'], ['Talk the talk', 'An executive résumé, a LinkedIn profile recruiters find, and an interview narrative free of jargon and full of presence.'], ['Walk the walk', 'Target-employer strategy, networking that gets you into rooms, and a 90-day plan so the first quarter confirms the hiring decision.']]
 export const Framework = () => (
-  <section className="section dark"><div className="wrap framework">
+  <section className="section dark" id="framework"><div className="wrap framework">
     <Reveal><span className="eyebrow">Amy's framework</span>
       <h2>How do you move from public service to private-sector leadership? With the <em>Mission-to-Market Method<span className="tm">™</span></em></h2>
       <p className="lede">Four steps, in order, every time. It's the same sequence behind every successful transition Amy has guided — whether it takes six weeks or six months.</p>
       <p style={{ marginTop: 28 }}><Link className="btn btn--primary" to="/services">See the programs</Link></p></Reveal>
     <div className="fw-steps">{STEPS.map(([h, p], i) => <Reveal key={h} className="fw-step" delay={i * .12}><div><h3>{h}</h3><p>{p}</p></div></Reveal>)}</div>
-  </div></section>
+  </div>
+  <Reveal className="wrap fw-figure"><figure className="figure figure--inline">
+    <img src="assets/img/journey-map.webp" width="1408" height="768" loading="lazy" alt="Five stages of the career transformation journey: assessment and clarity, strategy development, personal branding, job search and networking, and interview and launch." />
+    <figcaption>Stage by stage — from the first assessment through to a signed offer.</figcaption>
+  </figure></Reveal>
+  </section>
 )
 
 export const MeetAmy = () => (
   <section className="section"><div className="wrap about">
-    <Reveal className="about__side"><div className="avatar-card"><img className="avatar" src="assets/img/amy-portrait.jpg" alt="Amy Sindicic" /><b>Amy Sindicic</b><span>Career Strategist · Executive Résumé Writer · Interview Advisor</span><img className="logo" src="assets/brand/logo.png" alt="Transformations 123" /></div></Reveal>
+    <Reveal className="about__side">
+      <div className="portrait">
+        <div className="portrait__frame"><img src="assets/img/amy-desk.jpg" alt="Amy Sindicic at her desk" /></div>
+        <div className="portrait__tag"><span>Career strategist</span><b>Amy Sindicic</b></div>
+      </div>
+      <img className="portrait__logo" src="assets/brand/logo.png" alt="Transformations 123" />
+    </Reveal>
     <Reveal><span className="eyebrow">Meet Amy</span>
       <h2>Thirty years of teaching leaders to say what they mean — and be heard.</h2>
       <p><strong>Amy Sindicic helps government and military professionals transition into private-sector leadership roles</strong> by clarifying their value, strengthening their positioning, and aligning their résumés, LinkedIn profiles and interview strategies to today's market expectations.</p>
@@ -144,5 +165,52 @@ export const Posts = () => (
   <section className="section alt"><div className="wrap">
     <SectionHead eyebrow="What's new" title="Thinking for leaders in transition"><Link className="btn btn--ghost" to="/blog" style={{ justifySelf: 'start' }}>All articles</Link></SectionHead>
     <div className="posts">{POSTS.slice(0, 3).map((p, i) => <PostCard key={p.title} p={p} i={i} />)}</div>
+  </div></section>
+)
+
+export const ShowBand = () => (
+  <section className="showband" id="presence">
+    <img className="showband__media" src="assets/img/amy-presence.jpg" alt="" aria-hidden="true" />
+    <div className="wrap"><Reveal className="showband__inner">
+      <span className="eyebrow">Executive presence</span>
+      <h2>Thirty years in front of rooms like this — <em>teaching leaders to be heard.</em></h2>
+      <p className="lede">Executive presence isn't volume, and it isn't polish. It's saying the significant thing, in the language the room is listening for. Amy has taught that in lecture halls, agency transition programs and boardrooms on four continents — and it's exactly what she builds with you, one to one.</p>
+      <div className="showband__stats">
+        {[['30+', 'years teaching professional communication'], ['4', 'continents of senior clients served'], ['1:1', 'every engagement, directly with Amy']].map(([b, t]) => <div key={t}><b>{b}</b><span>{t}</span></div>)}
+      </div>
+    </Reveal></div>
+  </section>
+)
+
+export const MethodStrip = () => (
+  <section className="strip">
+    <img className="strip__media" src="assets/img/amy-boardroom.jpg" alt="" aria-hidden="true" />
+    <div className="wrap">
+      <Reveal><span className="eyebrow">The method</span><h2>Every transition follows <em>the same four steps.</em></h2></Reveal>
+      <Reveal as="a" className="btn btn--primary" href="#framework">See the method <Arrow /></Reveal>
+    </div>
+  </section>
+)
+
+const TILES = [
+  ['assets/img/amy-coaching.jpg', 'Amy Sindicic reviewing a résumé with a client', 'One to one', 'Across the table', 'Your résumé, your LinkedIn, your interview story — rebuilt together, in your own words.'],
+  ['assets/img/amy-podcast.jpg', 'Amy Sindicic recording a podcast interview', 'On the mic', 'In the conversation', 'Podcasts, panels and agency transition programs on what actually moves senior candidates forward.'],
+  ['assets/img/amy-keynote.jpg', 'Amy Sindicic presenting career transition strategies to a lecture hall', 'In the lecture hall', 'Teaching the room', 'Agency transition programs and university lecture halls — where hundreds of leaders first meet the method.'],
+]
+export const Mosaic = () => (
+  <section className="section alt"><div className="wrap">
+    <SectionHead eyebrow="How the work happens" title="Where you'll find Amy"><p className="lede">The workshops, the podcasts and the lecture halls are how leaders find her. The work itself happens across a table — one conversation at a time.</p></SectionHead>
+    <div className="mosaic">
+      {TILES.map(([img, alt, tag, h, p], i) => (
+        <Reveal key={h} as="article" className="mosaic__tile" delay={i * .1}>
+          <img src={img} alt={alt} />
+          <div className="mosaic__body"><span>{tag}</span><h3>{h}</h3><p>{p}</p></div>
+        </Reveal>))}
+      <Reveal as="article" className="mosaic__tile mosaic__tile--cta" delay={.2}>
+        <span>Start here</span><h3>A conversation costs nothing.</h3>
+        <p>Bring where you want to go. Leave with an honest read on what it takes to get there.</p>
+        <Link className="btn" to="/contact">Book a discovery call</Link>
+      </Reveal>
+    </div>
   </div></section>
 )

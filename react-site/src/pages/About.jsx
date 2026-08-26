@@ -7,7 +7,7 @@ export default function About() {
     <PageHero crumb="About" eyebrow="About Amy" title={<>Why government workers <em>trust Amy.</em></>} lede="Government leaders face a complex transition: how do you translate years of public service, authority and responsibility into language that resonates in the private sector — without minimizing your scope or impact? That is where Amy provides strategic clarity." />
     <section className="section"><div className="wrap about">
       <Reveal className="about__side">
-        <div className="avatar-card"><img className="avatar" src="assets/img/amy-portrait.jpg" alt="Amy Sindicic" /><b>Amy Sindicic</b><span>Career Strategist · Executive Résumé Writer · Interview Advisor</span><img className="logo" src="assets/brand/logo.png" alt="Transformations 123" /></div>
+        <div className="avatar-card"><img className="avatar" src="assets/img/amy-headshot.jpg" alt="Amy Sindicic" /><b>Amy Sindicic</b><span>Career Strategist · Executive Résumé Writer · Interview Advisor</span><img className="logo" src="assets/brand/logo.png" alt="Transformations 123" /></div>
         <a className="video" href="#" onClick={(e) => { e.preventDefault(); openVideo() }} aria-label="Watch: Your Federal Exit Strategy"><img src="assets/img/public-private.jpg" alt="" /><span><span><i><svg width="22" height="22" viewBox="0 0 24 24" fill="#0B1B3A"><path d="M8 5v14l11-7z" /></svg></i>Watch: Your Federal Exit Strategy</span></span></a>
       </Reveal>
       <Reveal><span className="eyebrow">The story</span>
